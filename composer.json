@@ -10,11 +10,29 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
-    "require-dev": {},
+    "require": {
+        "php": "^7.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.5",
+        "phpunit/phpunit": "^6.0"
+    },
     "autoload": {
         "psr-4": {
             "MarkWalet\\EnvironmentManager\\": "src/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MarkWalet\\EnvironmentManager\\EnvironmentManagerServiceProvider"
+            ]
         }
     }
 }
