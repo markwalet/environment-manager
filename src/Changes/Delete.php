@@ -9,7 +9,7 @@ class Delete extends Change
     use HasKey;
 
     /**
-     * PendingDelete constructor.
+     * Delete constructor.
      *
      * @param string $key
      */

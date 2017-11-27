@@ -20,7 +20,7 @@ class Move extends Change
     private $before;
 
     /**
-     * PendingDelete constructor.
+     * Move constructor.
      *
      * @param string $key
      */

@@ -1,6 +1,6 @@
 <?php
 
-namespace Changes;
+namespace MarkWalet\EnvironmentManager\Tests\Changes;
 
 use MarkWalet\EnvironmentManager\Changes\Update;
 use PHPUnit\Framework\TestCase;

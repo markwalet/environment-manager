@@ -20,7 +20,7 @@ class Update extends Change
     private $before;
 
     /**
-     * PendingUpdate constructor.
+     * Update constructor.
      *
      * @param string $key
      * @param mixed $value
@@ -55,7 +55,7 @@ class Update extends Change
 
         return $content;
     }
-    
+
     /**
      * Place new value after a key.
      *

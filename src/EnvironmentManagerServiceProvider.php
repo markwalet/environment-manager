@@ -38,8 +38,7 @@ class EnvironmentManagerServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Environment::class, function(Application $app) {
             return new Environment(
-                new FileEnvironmentAdapter($app->environmentFilePath()),
-                new LaravelEnvironmentValidator
+                new FileEnvironmentAdapter($app->environmentFilePath())
             );
         });
     }

@@ -5,14 +5,15 @@ namespace MarkWalet\EnvironmentManager;
 use Closure;
 use MarkWalet\EnvironmentManager\Adapters\EnvironmentAdapter;
 use MarkWalet\EnvironmentManager\Exceptions\MethodNotFoundException;
-use MarkWalet\EnvironmentManager\Validator\EnvironmentValidator;
 
 /**
  * Class Environment
  * @package MarkWalet\Environment
  *
  * @method bool add(string $key, $value = null)
+ * @method bool create(string $key, $value = null)
  * @method bool set(string $key, $value = null)
+ * @method bool update(string $key, $value = null)
  * @method bool delete(string $key)
  * @method bool unset(string $key)
  */
@@ -24,19 +25,13 @@ class Environment
     private $adapter;
 
     /**
-     * @var EnvironmentValidator
-     */
-    private $validator;
-    /**
      * Environment constructor.
      *
      * @param EnvironmentAdapter $adapter
-     * @param EnvironmentValidator $validator
      */
-    function __construct(EnvironmentAdapter $adapter, EnvironmentValidator $validator)
+    function __construct(EnvironmentAdapter $adapter)
     {
         $this->adapter = $adapter;
-        $this->validator = $validator;
         $this->builder = new EnvironmentBuilder;
     }
 

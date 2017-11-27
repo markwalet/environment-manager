@@ -20,7 +20,7 @@ class Addition extends Change
     private $before;
 
     /**
-     * PendingAddition constructor.
+     * Addition constructor.
      *
      * @param string $key
      * @param $value
