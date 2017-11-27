@@ -1,5 +1,5 @@
 {
-    "name": "markwalet/dotenv-manager",
+    "name": "markwalet/environment-manager",
     "description": "A Laravel package that helps you edit the .env file programmatically.",
     "type": "library",
     "license": "MIT",
