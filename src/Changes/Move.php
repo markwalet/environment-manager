@@ -3,6 +3,7 @@
 namespace MarkWalet\EnvironmentManager\Changes;
 
 use MarkWalet\EnvironmentManager\Changes\Concerns\HasKey;
+use MarkWalet\EnvironmentManager\Exceptions\InvalidArgumentException;
 use MarkWalet\EnvironmentManager\Exceptions\InvalidPositionException;
 
 class Move extends Change
@@ -35,11 +36,15 @@ class Move extends Change
      * @param string $content
      *
      * @return string
+     * @throws InvalidArgumentException
      * @throws InvalidPositionException
      */
     public function apply(string $content): string
     {
         preg_match('/'.$this->getKey().'=(.*)/', $content, $matches);
+        if (isset($matches[1]) === false) {
+            throw new InvalidArgumentException("Key {$this->getKey()} is not found in environment file.");
+        }
         $value = $matches[1];
 
         $content = (new Delete($this->getKey()))->apply($content);

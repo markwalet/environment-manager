@@ -5,6 +5,7 @@ namespace MarkWalet\EnvironmentManager;
 use MarkWalet\EnvironmentManager\Changes\Addition;
 use MarkWalet\EnvironmentManager\Changes\Change;
 use MarkWalet\EnvironmentManager\Changes\Delete;
+use MarkWalet\EnvironmentManager\Changes\Move;
 use MarkWalet\EnvironmentManager\Changes\Update;
 use MarkWalet\EnvironmentManager\Exceptions\InvalidArgumentException;
 use MarkWalet\EnvironmentManager\Exceptions\MethodNotFoundException;
@@ -17,6 +18,7 @@ use MarkWalet\EnvironmentManager\Exceptions\MethodNotFoundException;
  * @method Addition create(string $key, $value = null)
  * @method Update set(string $key, $value = null)
  * @method Update update(string $key, $value = null)
+ * @method bool move(string $key)
  * @method Delete delete(string $key)
  * @method Delete unset(string $key)
  *
@@ -31,6 +33,7 @@ class EnvironmentBuilder
         'create' => Addition::class,
         'set' => Update::class,
         'update' => Update::class,
+        'move' => Move::class,
         'delete' => Delete::class,
         'unset' => Delete::class,
     ];
@@ -107,8 +110,7 @@ class EnvironmentBuilder
         if (class_exists($class) === false) {
             throw new InvalidArgumentException("Class {$class} is not found.");
         }
-
-        if (is_subclass_of($class, Change::class)) {
+        if (is_subclass_of($class, Change::class) === false) {
             throw new InvalidArgumentException("{$class} does not extend " . Change::class);
         }
 

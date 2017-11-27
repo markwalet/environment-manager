@@ -51,7 +51,10 @@ trait HasValue
         }
 
         if (preg_match('/\s/', $value)) {
-            return "\"$value\"";
+
+            return (substr($value, 0, 1) === '"' && substr($value, -1) === '"')
+                ? $value
+                : "\"$value\"";
         }
 
         return $value;

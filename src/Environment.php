@@ -14,6 +14,7 @@ use MarkWalet\EnvironmentManager\Exceptions\MethodNotFoundException;
  * @method bool create(string $key, $value = null)
  * @method bool set(string $key, $value = null)
  * @method bool update(string $key, $value = null)
+ * @method bool move(string $key)
  * @method bool delete(string $key)
  * @method bool unset(string $key)
  */
@@ -47,6 +48,17 @@ class Environment
         $callback($this->builder);
 
         return $this->persist();
+    }
+    
+    /**
+     * Extend the builder with a new method.
+     *
+     * @param string $method Name of the method
+     * @param string $class Class name that implements PendingChange
+     */
+    public function extend(string $method, string $class)
+    {
+        $this->builder->extend($method, $class);
     }
 
     /**
