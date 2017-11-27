@@ -17,7 +17,7 @@ MarkWalet\EnvironmentManager\EnvironmentManagerServiceProvider::class
 ```
 
 ## Usage
-You can get the environment manager by resolving it with the app Laravel service container. This will give you a singleton `MarkWalet\EnvironmentManager\Environment` class with the right dependencies.
+You can get the environment manager by resolving it with the app Laravel service container. This will give you a singleton `MarkWalet\EnvironmentManager\Environment` instance with the right dependencies.
 ```php
 $environment = app(Environment::class);
 ```
@@ -129,8 +129,6 @@ After we extended the builder we can call it through the environment object:
  * INCREMENT=56
  */
 $environment->increment('INCREMENT');
-
-
 
 /**
  * New content: 
