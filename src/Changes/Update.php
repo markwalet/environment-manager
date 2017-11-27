@@ -4,7 +4,6 @@ namespace MarkWalet\EnvironmentManager\Changes;
 
 use MarkWalet\EnvironmentManager\Changes\Concerns\HasKey;
 use MarkWalet\EnvironmentManager\Changes\Concerns\HasValue;
-use MarkWalet\EnvironmentManager\EnvironmentLine;
 
 class Update extends Change
 {
@@ -56,15 +55,7 @@ class Update extends Change
 
         return $content;
     }
-
-    /**
-     * @param EnvironmentLine[] $lines
-     */
-    public function apply2(array $lines)
-    {
-
-    }
-
+    
     /**
      * Place new value after a key.
      *

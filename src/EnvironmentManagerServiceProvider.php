@@ -36,8 +36,8 @@ class EnvironmentManagerServiceProvider extends ServiceProvider
      */
     protected function registerManager()
     {
-        $this->app->singleton(EnvironmentManager::class, function(Application $app) {
-            return new EnvironmentManager(
+        $this->app->singleton(Environment::class, function(Application $app) {
+            return new Environment(
                 new FileEnvironmentAdapter($app->environmentFilePath()),
                 new LaravelEnvironmentValidator
             );

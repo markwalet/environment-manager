@@ -2,110 +2,87 @@
 
 namespace MarkWalet\EnvironmentManager;
 
-use MarkWalet\EnvironmentManager\Exceptions\InvalidArgumentException;
+use Closure;
+use MarkWalet\EnvironmentManager\Adapters\EnvironmentAdapter;
+use MarkWalet\EnvironmentManager\Exceptions\MethodNotFoundException;
+use MarkWalet\EnvironmentManager\Validator\EnvironmentValidator;
 
+/**
+ * Class Environment
+ * @package MarkWalet\Environment
+ *
+ * @method bool add(string $key, $value = null)
+ * @method bool set(string $key, $value = null)
+ * @method bool delete(string $key)
+ * @method bool unset(string $key)
+ */
 class Environment
 {
     /**
-     * @var EnvironmentLine[]
+     * @var EnvironmentAdapter
      */
-    public $lines = [];
+    private $adapter;
 
     /**
-     * Get the index for a given key.
-     *
-     * Returns -1 if the key is not present.
-     * @param string $key
-     *
-     * @return int
+     * @var EnvironmentValidator
      */
-    public function indexForKey(string $key)
+    private $validator;
+    /**
+     * Environment constructor.
+     *
+     * @param EnvironmentAdapter $adapter
+     * @param EnvironmentValidator $validator
+     */
+    function __construct(EnvironmentAdapter $adapter, EnvironmentValidator $validator)
     {
-        foreach($this->lines as $index => $line) {
-            if ($line->key() === $key) {
-                return $index;
-            }
-        }
-
-        return -1;
+        $this->adapter = $adapter;
+        $this->validator = $validator;
+        $this->builder = new EnvironmentBuilder;
     }
 
     /**
-     * Determine if the environment contains a given key.
+     * Update and persist the environment file.
      *
-     * @param string $key
+     * @param Closure $callback
      *
      * @return bool
      */
-    public function has(string $key)
+    public function mutate(Closure $callback)
     {
-        foreach($this->lines as $index => $line) {
-            if ($line->key() === $key) {
-                return true;
-            }
-        }
+        $callback($this->builder);
 
-        return false;
+        return $this->persist();
     }
 
     /**
-     * Add a environment line.
+     * Persist pending changes to the environment file.
      *
-     * @param EnvironmentLine $line
+     * @return bool
      */
-    public function add(EnvironmentLine $line)
+    private function persist()
     {
-        $this->lines[] = $line;
+        $content = $this->adapter->read();
+
+        $content = $this->builder->apply($content);
+
+        return $this->adapter->write($content);
     }
 
     /**
-     * Whether a offset exists
+     * Call a change action dynamically.
      *
-     * @param boolean $offset
+     * @param string $method
+     * @param array $parameters
      *
-     * @return boolean
+     * @return bool
+     * @throws MethodNotFoundException
      */
-    public function offsetExists($offset)
+    public function __call($method, $parameters)
     {
-        return array_key_exists($offset, $this->lines);
-    }
+        // Call method on builder.
+        $this->builder->$method(...$parameters);
 
-    /**
-     * Offset to retrieve
-     *
-     * @param string $offset
-     *
-     * @return EnvironmentLine
-     */
-    public function offsetGet($offset)
-    {
-        return $this->lines[$offset];
-    }
-
-    /**
-     * Offset to set
-     *
-     * @param string $offset
-     * @param EnvironmentLine $value
-     *
-     * @throws InvalidArgumentException
-     */
-    public function offsetSet($offset, $value)
-    {
-        if (is_object($value) === false || get_class($value) !== EnvironmentLine::class) {
-            throw new InvalidArgumentException("Value is not a environment line.");
-        }
-
-        $this->lines[$offset] = $value;
-    }
-
-    /**
-     * Offset to unset
-     *
-     * @param string $offset
-     */
-    public function offsetUnset($offset)
-    {
-        unset($this->lines[$offset]);
+        // Persist changes.
+        return $this->persist();
     }
 }

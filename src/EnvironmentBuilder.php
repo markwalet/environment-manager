@@ -11,10 +11,12 @@ use MarkWalet\EnvironmentManager\Exceptions\MethodNotFoundException;
 
 /**
  * Class EnvironmentBuilder
- * @package MarkWalet\EnvironmentManager
+ * @package MarkWalet\Environment
  *
  * @method Addition add(string $key, $value = null)
+ * @method Addition create(string $key, $value = null)
  * @method Update set(string $key, $value = null)
+ * @method Update update(string $key, $value = null)
  * @method Delete delete(string $key)
  * @method Delete unset(string $key)
  *
@@ -26,7 +28,9 @@ class EnvironmentBuilder
      */
     private $methods = [
         'add' => Addition::class,
+        'create' => Addition::class,
         'set' => Update::class,
+        'update' => Update::class,
         'delete' => Delete::class,
         'unset' => Delete::class,
     ];
