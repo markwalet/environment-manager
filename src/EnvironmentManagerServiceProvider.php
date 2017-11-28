@@ -5,7 +5,6 @@ namespace MarkWalet\EnvironmentManager;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\Application;
 use MarkWalet\EnvironmentManager\Adapters\FileEnvironmentAdapter;
-use MarkWalet\EnvironmentManager\Validator\LaravelEnvironmentValidator;
 
 class EnvironmentManagerServiceProvider extends ServiceProvider
 {

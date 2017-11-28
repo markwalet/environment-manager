@@ -3,6 +3,8 @@
 namespace MarkWalet\EnvironmentManager\Tests\Changes;
 
 use MarkWalet\EnvironmentManager\Changes\Move;
+use MarkWalet\EnvironmentManager\Exceptions\InvalidArgumentException;
+use MarkWalet\EnvironmentManager\Exceptions\InvalidPositionException;
 use PHPUnit\Framework\TestCase;
 
 class MoveTest extends TestCase
@@ -49,6 +51,32 @@ class MoveTest extends TestCase
         $new = $change->apply($original);
 
         $this->assertEquals("TEST_VALUE1=example1".PHP_EOL."TEST_VALUE2=example2".PHP_EOL."EXISTING_KEY=value", $new);
+    }
+
+    /** @test */
+    public function throws_invalid_argument_exception_when_key_is_not_found()
+    {
+        $change = new Move('NON_EXISTING');
+        $change->after('TEST_VALUE1');
+        $original = "TEST_VALUE1=example1".PHP_EOL."TEST_VALUE2=example2";
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $new = $change->apply($original);
+
+        $this->assertEquals("TEST_VALUE1=example1".PHP_EOL."TEST_VALUE2=example2", $new);
+    }
+
+    /** @test */
+    public function throws_invalid_position_exception_when_no_new_position_is_given()
+    {
+        $this->expectException(InvalidPositionException::class);
+        $original = "TEST_VALUE1=example1".PHP_EOL."TEST_VALUE2=example2";
+        $change = new Move('TEST_VALUE1');
+
+        $new = $change->apply($original);
+
+        $this->assertEquals("TEST_VALUE1=example1".PHP_EOL."TEST_VALUE2=example2", $new);
     }
 
 }

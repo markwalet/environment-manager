@@ -42,9 +42,11 @@ class Move extends Change
     public function apply(string $content): string
     {
         preg_match('/'.$this->getKey().'=(.*)/', $content, $matches);
+
         if (isset($matches[1]) === false) {
             throw new InvalidArgumentException("Key {$this->getKey()} is not found in environment file.");
         }
+
         $value = $matches[1];
 
         $content = (new Delete($this->getKey()))->apply($content);

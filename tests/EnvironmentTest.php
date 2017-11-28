@@ -9,7 +9,7 @@ use MarkWalet\EnvironmentManager\Environment;
 use MarkWalet\EnvironmentManager\EnvironmentBuilder;
 use PHPUnit\Framework\TestCase;
 
-class DeleteTest extends TestCase
+class EnvironmentTest extends TestCase
 {
     /**
      * @var FakeEnvironmentAdapter
