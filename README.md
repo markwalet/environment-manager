@@ -77,7 +77,7 @@ $environment->mutate(function(EnvironmentBuilder $builder){
 ```
 
 ### Available methods
-Below yo8u will find every available method and its underlying class. These methods can be called on the `Environment` class itself and the `EnvironmentBuilder` you get when mutating the environment.
+Below you will find every available method and its underlying class. These methods can be called on the `Environment` class itself and the `EnvironmentBuilder` you get when mutating the environment.
 
 Method  |  Returns
 ------------- | -------------
