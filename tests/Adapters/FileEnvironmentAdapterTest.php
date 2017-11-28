@@ -17,11 +17,15 @@ class FileEnvironmentAdapterTest extends TestCase
     protected function setUp()
     {
         $this->path = __DIR__ . '/.env.testing';
-        $content = "TEST1=value1".PHP_EOL."TEST2=value2".PHP_EOL."TEST3=value3";
+        $content = "TEST1=value1" . PHP_EOL . "TEST2=value2" . PHP_EOL . "TEST3=value3";
 
         file_put_contents($this->path, $content);
     }
 
+    /**
+     * Tears down the fixture, for example, close a network connection.
+     * This method is called after a test is executed.
+     */
     protected function tearDown()
     {
         unlink($this->path);
@@ -34,7 +38,7 @@ class FileEnvironmentAdapterTest extends TestCase
 
         $content = $adapter->read();
 
-        $this->assertEquals("TEST1=value1".PHP_EOL."TEST2=value2".PHP_EOL."TEST3=value3", $content);
+        $this->assertEquals("TEST1=value1" . PHP_EOL . "TEST2=value2" . PHP_EOL . "TEST3=value3", $content);
     }
 
     /** @test */
@@ -42,9 +46,9 @@ class FileEnvironmentAdapterTest extends TestCase
     {
         $adapter = new FileEnvironmentAdapter($this->path);
 
-        $adapter->write("TEST1=updated".PHP_EOL."TEST2=updated");
+        $adapter->write("TEST1=updated" . PHP_EOL . "TEST2=updated");
         $content = $adapter->read();
 
-        $this->assertEquals("TEST1=updated".PHP_EOL."TEST2=updated", $content);
+        $this->assertEquals("TEST1=updated" . PHP_EOL . "TEST2=updated", $content);
     }
 }

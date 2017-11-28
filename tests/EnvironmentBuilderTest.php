@@ -74,16 +74,17 @@ class Decrement extends Change
      */
     public function apply(string $content): string
     {
-        $search = '/'.$this->getKey().'=(.*)/';
+        $search = '/' . $this->getKey() . '=(.*)/';
         preg_match($search, $content, $matches);
         $value = $matches[1];
 
-        $replacement = $this->getKey().'='.($value - 1);
+        $replacement = $this->getKey() . '=' . ($value - 1);
 
         return preg_replace($search, $replacement, $content);
     }
 }
 
-class InvalidChange {
+class InvalidChange
+{
 
 }

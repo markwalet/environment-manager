@@ -98,7 +98,7 @@ class EnvironmentTest extends TestCase
     /** @test */
     public function can_mutate_multiple_lines_in_an_environment_line_at_once()
     {
-        $this->adapter->setSource("TEST1=value1".PHP_EOL."TEST2=value2".PHP_EOL."TEST3=value3");
+        $this->adapter->setSource("TEST1=value1" . PHP_EOL . "TEST2=value2" . PHP_EOL . "TEST3=value3");
 
         $this->environment->mutate(function (EnvironmentBuilder $builder) {
             $builder->add('TEST4', 'escaped value');
