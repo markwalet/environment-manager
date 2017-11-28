@@ -1,6 +1,7 @@
 {
     "name": "markwalet/environment-manager",
     "description": "A Laravel package that helps you edit the .env file programmatically.",
+    "keywords": ["laravel", "environment", "dotenv"],
     "type": "library",
     "license": "MIT",
     "authors": [
