@@ -1,5 +1,12 @@
 # Laravel environment manager
+
+[![Build Status](https://travis-ci.org/markwalet/environment-manager.svg?branch=master)](https://travis-ci.org/markwalet/environment-manager)
+[![Total Downloads](https://poser.pugx.org/markwalet/environment-manager/downloads)](https://packagist.org/packages/markwalet/environment-manager)
+[![Latest Stable Version](https://poser.pugx.org/markwalet/environment-manager/v/stable)](https://packagist.org/packages/markwalet/environment-manager)
+[![License](https://poser.pugx.org/markwalet/environment-manager/license)](https://packagist.org/packages/markwalet/environment-manager)
+
 A Laravel package that helps you edit the .env file programmatically.
+
 
 ## Installation
 You can install this package with composer.
