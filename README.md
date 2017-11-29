@@ -62,9 +62,9 @@ You can use the `mutate()` method when you want to apply multiple changes to the
  */
  
 $environment->mutate(function(EnvironmentBuilder $builder){
-	$builder->add('TEST4', 'escaped value');
-	$builder->update('TEST2', 'updated')->after('TEST3');
-	$builder->delete('TEST1');
+    $builder->add('TEST4', 'escaped value');
+    $builder->update('TEST2', 'updated')->after('TEST3');
+    $builder->delete('TEST1');
 });
 
 /**
