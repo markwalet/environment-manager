@@ -12,8 +12,8 @@ use MarkWalet\EnvironmentManager\Exceptions\MethodNotFoundException;
 
 /**
  * Class EnvironmentBuilder
- * @package MarkWalet\Environment
  *
+ * @package MarkWalet\Environment
  * @method Addition add(string $key, $value = null)
  * @method Addition create(string $key, $value = null)
  * @method Update set(string $key, $value = null)
@@ -21,7 +21,6 @@ use MarkWalet\EnvironmentManager\Exceptions\MethodNotFoundException;
  * @method bool move(string $key)
  * @method Delete delete(string $key)
  * @method Delete unset(string $key)
- *
  */
 class EnvironmentBuilder
 {
@@ -49,7 +48,6 @@ class EnvironmentBuilder
      * Add a pending change.
      *
      * @param Change $change
-     *
      * @return Change
      */
     public function change(Change $change): Change
@@ -61,25 +59,23 @@ class EnvironmentBuilder
      * Apply changes to the given content.
      *
      * @param string $content
-     *
      * @return string
      */
     public function apply(string $content)
     {
         /** @var Change $change */
-        foreach($this->changes as $change) {
+        foreach ($this->changes as $change) {
             $content = $change->apply($content);
         }
 
         return $content;
     }
-    
+
     /**
      * Extend the builder with a new method.
      *
      * @param string $method Name of the method
      * @param string $class Class name that implements PendingChange
-     *
      * @throws InvalidArgumentException
      */
     public function extend(string $method, string $class)
@@ -88,10 +84,15 @@ class EnvironmentBuilder
             throw new InvalidArgumentException("Class {$class} is not found.");
         }
         if (is_subclass_of($class, Change::class) === false) {
-            throw new InvalidArgumentException("{$class} does not extend " . Change::class);
+            throw new InvalidArgumentException("{$class} does not extend ".Change::class);
         }
 
         $this->methods[$method] = $class;
+    }
+
+    public function methods()
+    {
+        return $this->methods;
     }
 
     /**
@@ -99,7 +100,6 @@ class EnvironmentBuilder
      *
      * @param string $method
      * @param array $parameters
-     *
      * @return Change
      * @throws MethodNotFoundException
      */

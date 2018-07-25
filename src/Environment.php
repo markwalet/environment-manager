@@ -5,7 +5,6 @@ namespace MarkWalet\EnvironmentManager;
 use Closure;
 use MarkWalet\EnvironmentManager\Exceptions\InvalidArgumentException;
 use MarkWalet\EnvironmentManager\Adapters\EnvironmentAdapter;
-use MarkWalet\EnvironmentManager\Exceptions\MethodNotFoundException;
 
 /**
  * Class Environment
