@@ -44,4 +44,20 @@ class EnvironmentManagerServiceProvider extends ServiceProvider
             );
         });
     }
+
+    /**
+     * Register the artisan commands.
+     *
+     * @return void
+     */
+    private function registerCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                AddEnvironmentValueCommand::class,
+                SetEnvironmentValueCommand::class,
+                RemoveEnvironmentValueCommand::class,
+            ]);
+        }
+    }
 }
