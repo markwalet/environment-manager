@@ -3,6 +3,7 @@
 namespace MarkWalet\EnvironmentManager;
 
 use Closure;
+use MarkWalet\EnvironmentManager\Exceptions\InvalidArgumentException;
 use MarkWalet\EnvironmentManager\Adapters\EnvironmentAdapter;
 use MarkWalet\EnvironmentManager\Exceptions\MethodNotFoundException;
 
@@ -24,6 +25,11 @@ class Environment
      * @var EnvironmentAdapter
      */
     private $adapter;
+
+    /**
+     * @var EnvironmentBuilder
+     */
+    private $builder;
 
     /**
      * Environment constructor.
@@ -49,12 +55,13 @@ class Environment
 
         return $this->persist();
     }
-    
+
     /**
      * Extend the builder with a new method.
      *
      * @param string $method Name of the method
      * @param string $class Class name that implements PendingChange
+     * @throws InvalidArgumentException
      */
     public function extend(string $method, string $class)
     {
@@ -82,7 +89,6 @@ class Environment
      * @param array $parameters
      *
      * @return bool
-     * @throws MethodNotFoundException
      */
     public function __call($method, $parameters)
     {

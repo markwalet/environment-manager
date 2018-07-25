@@ -73,6 +73,26 @@ class EnvironmentBuilder
 
         return $content;
     }
+    
+    /**
+     * Extend the builder with a new method.
+     *
+     * @param string $method Name of the method
+     * @param string $class Class name that implements PendingChange
+     *
+     * @throws InvalidArgumentException
+     */
+    public function extend(string $method, string $class)
+    {
+        if (class_exists($class) === false) {
+            throw new InvalidArgumentException("Class {$class} is not found.");
+        }
+        if (is_subclass_of($class, Change::class) === false) {
+            throw new InvalidArgumentException("{$class} does not extend " . Change::class);
+        }
+
+        $this->methods[$method] = $class;
+    }
 
     /**
      * Call a change action dynamically.
@@ -95,25 +115,5 @@ class EnvironmentBuilder
 
         // Add change to builder.
         return $this->change($change);
-    }
-
-    /**
-     * Extend the builder with a new method.
-     *
-     * @param string $method Name of the method
-     * @param string $class Class name that implements PendingChange
-     *
-     * @throws InvalidArgumentException
-     */
-    public function extend(string $method, string $class)
-    {
-        if (class_exists($class) === false) {
-            throw new InvalidArgumentException("Class {$class} is not found.");
-        }
-        if (is_subclass_of($class, Change::class) === false) {
-            throw new InvalidArgumentException("{$class} does not extend " . Change::class);
-        }
-
-        $this->methods[$method] = $class;
     }
 }

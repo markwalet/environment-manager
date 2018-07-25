@@ -2,8 +2,8 @@
 
 namespace MarkWalet\EnvironmentManager;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\ServiceProvider;
 use MarkWalet\EnvironmentManager\Adapters\FileEnvironmentAdapter;
 
 class EnvironmentManagerServiceProvider extends ServiceProvider
@@ -26,6 +26,7 @@ class EnvironmentManagerServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerManager();
+        $this->registerCommands();
     }
 
     /**
@@ -33,12 +34,17 @@ class EnvironmentManagerServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerManager()
+    private function registerManager()
     {
-        $this->app->singleton(Environment::class, function(Application $app) {
+        $this->app->singleton(Environment::class, function (Application $app) {
             return new Environment(
                 new FileEnvironmentAdapter($app->environmentFilePath())
             );
         });
+    }
+
+    private function registerCommands()
+    {
+
     }
 }
