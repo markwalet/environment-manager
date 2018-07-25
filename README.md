@@ -15,12 +15,18 @@ You can install this package with composer.
 composer require markwalet/environment-manager
 ```
 
+### Laravel
 Although this package is written for Laravel projects, the package can also be used for other frameworks or vanilla PHP projects.
 
 Laravel 5.5 used Package auto-discovery, so you don't have to register the service provider. If you want to register the service provider manually, add the following line to your `config/app.php` file:
 
 ```php
 MarkWalet\EnvironmentManager\EnvironmentManagerServiceProvider::class
+```
+
+The service provider is also compatible with Laravel Lumen. Just add the following line to your `bootstrap/app.php` file:
+```php
+$app->register(\MarkWalet\EnvironmentManager\EnvironmentManagerServiceProvider::class);
 ```
 
 ## Usage
